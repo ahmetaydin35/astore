@@ -40,7 +40,6 @@ PurchaseReceiptEmail.PreviewProps = {
     orderitems: [
       {
         name: 'Sample Product 1',
-        orderId: '123',
         productId: '123',
         slug: 'sample-product-1',
         qty: 1,
@@ -49,7 +48,6 @@ PurchaseReceiptEmail.PreviewProps = {
       },
       {
         name: 'Sample Product 2',
-        orderId: '123',
         productId: '124',
         slug: 'sample-product-2',
         qty: 1,
