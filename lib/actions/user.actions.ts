@@ -8,7 +8,6 @@ import {
   updateUserSchema,
 } from '../validators';
 import { auth, signIn, signOut } from '@/auth';
-import { isRedirectError } from 'next/dist/client/components/redirect-error';
 import { hash } from '../encrypt';
 import { prisma } from '@/db/prisma';
 import { formatError } from '../utils';
@@ -34,7 +33,14 @@ export async function signInWithCredentials(
 
     return { success: true, message: 'Signed in successfully' };
   } catch (error) {
-    if (isRedirectError(error)) {
+    // Check if error is a Next.js redirect error
+    if (
+      error &&
+      typeof error === 'object' &&
+      'digest' in error &&
+      typeof error.digest === 'string' &&
+      error.digest.startsWith('NEXT_REDIRECT')
+    ) {
       throw error;
     }
     return { success: false, message: 'Invalid email or password' };
@@ -83,7 +89,14 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
 
     return { success: true, message: 'User registered successfully' };
   } catch (error) {
-    if (isRedirectError(error)) {
+    // Check if error is a Next.js redirect error
+    if (
+      error &&
+      typeof error === 'object' &&
+      'digest' in error &&
+      typeof error.digest === 'string' &&
+      error.digest.startsWith('NEXT_REDIRECT')
+    ) {
       throw error;
     }
     return { success: false, message: formatError(error) };
