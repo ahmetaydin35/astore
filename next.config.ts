@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
         hostname: 'utfs.io',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'astore-red.vercel.app',
+        port: '',
+      },
     ],
   },
 };
